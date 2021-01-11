@@ -1,0 +1,40 @@
+create table company.dep(
+dname char(30),
+	dno int primary key,
+	mgrssn char(10),
+	mgrstartdate int
+);
+create table company.emp(
+ename char(30),
+	address char(30),
+	salary decimal(10,2),
+	ssn int primary key,
+	bdate int,
+	dnum int references company.dep(dno));
+alter table company.dep add column mssn int references company.emp(ssn)
+create table company.proj(
+pname char(20),
+	ploc char(30),
+	pno int primary key,
+	pdno int references company.dep(dno)
+);
+create table company.dloc(
+dloc char(30),
+	dname char(20),
+	dlno int references company.dep(dno),
+	primary key (dlno,dname)
+);
+create table company.depend(
+gender char(6),
+	bdate int,
+	depname char(20),
+	relations char(10),
+	depssn int references company.emp(ssn),
+	primary key(depname,depssn)
+);
+create table company.workson(
+hours decimal(3,2),
+	wssn int references company.emp(ssn),
+	wpno int references company.dep(dno),
+	primary key(wssn,wpno)
+);
